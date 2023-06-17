@@ -15,10 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag tsrana1/hello-cicd:$(git rev-parse --short "$GITHUB_SHA")
+      run: docker build . --file Dockerfile --tag tsrana1/hello-cicd:any
     - name: Login to Docker
       run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWD }}      
     - name: Display Docker images
       run: docker images
     - name: Push image to Docker
-      run: docker push tsrana1/hello-cicd:$(git rev-parse --short "$GITHUB_SHA")      
+      run: docker push tsrana1/hello-cicd:any      
