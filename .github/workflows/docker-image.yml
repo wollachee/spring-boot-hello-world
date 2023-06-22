@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "tsrana-cicd" ]
+  pull_request:
+    branches: [ "tsrana-cicd" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag tsrana1/hello-cicd:any
+    - name: Login to Docker
+      run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWD }}      
+    - name: Display Docker images
+      run: docker images
+    - name: Push image to Docker
+      run: docker push tsrana1/hello-cicd:any      
